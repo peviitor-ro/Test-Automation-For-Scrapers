@@ -19,10 +19,10 @@ public class AppTest
     public void shouldAnswerWithTrue() throws Exception
     {
         App.main(null);
-        int response = App.peviitorJobs;
+        int peviitorJobs = App.peviitorJobs;
+        int scraperJobs = App.scraperJobs;
 
-        System.out.println(response);
-        assertEquals(699, response);
+        assertEquals(scraperJobs, peviitorJobs);
 
     }
 }

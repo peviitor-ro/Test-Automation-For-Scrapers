@@ -14,8 +14,8 @@ import java.util.*;
  */
 public class App {
 
-    public static String peviitorUrl = "https://api.peviitor.ro/v3/search/?q=continental&country=Rom%C3%A2nia&page=1";
-    public static String scraperUrl = "https://www.peviitor.ro/locuri-de-munca/continental";
+    public static String peviitorUrl = " https://api.peviitor.ro/v3/search/?q=inetum&country=Rom%C3%A2nia&page=1";
+    public static String scraperUrl = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/";
     public static int peviitorJobs = 0;
     public static int scraperJobs = 0;
     public static void main(String[] args) throws Exception {
@@ -28,15 +28,29 @@ public class App {
 
             // convert JSON string to Map
             Map<String, Object> map = (Map<String, Object>) responseObj;
-            
             Map<String, Object> peviitorJobsApi = (Map<String, Object>) map.get("response");
-
             peviitorJobs = (int) peviitorJobsApi.get("numFound");
 
+            // get the number of jobs from the scraper
+            String data = '{' + "\"file\": " + "\"inetum.py\"" + '}';
+            String scraperData = makeRequest(scraperUrl, "POST", data);
+
+            // // parse the response to get the number of jobs
+            Object responseObjScraper = objectMapper.readValue(scraperData, Object.class);
+
+            // convert JSON string to Map
+            Map<String, Object> mapScraper = (Map<String, Object>) responseObjScraper;
+            ArrayList<Object> scraperJobsApi = (ArrayList<Object>) mapScraper.get("succes");
+
+            // split the response to get the number of jobs
+            scraperJobs = Integer.parseInt(scraperJobsApi.get(scraperJobsApi.size() - 4).toString().split(" ")[2]);
+
+            System.out.println(scraperJobs);
+            System.out.println(peviitorJobs);
     }
 
     // This method makes a request to the given url and returns the response as a string
-    public static String makeRequest(String url, String method ) throws IOException {
+    public static String makeRequest(String url, String method, String... data ) throws IOException {
 
         // create the url
         URL apiUrl = new URL(url);
@@ -46,9 +60,15 @@ public class App {
         connection.setRequestMethod(method);
 
         // set the request headers
-        if (method == "POST") {
-            connection.setRequestProperty("Content-Type", "application/json");
-            connection.setDoOutput(true);
+
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+
+        // set the request body
+        if (data.length > 0) {
+            connection.getOutputStream().write(data[0].getBytes());
         }
 
         // get the response code
