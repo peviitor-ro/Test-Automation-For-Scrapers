@@ -21,8 +21,9 @@ public class AppTest
         App.main(null);
         int peviitorJobs = App.peviitorJobs;
         int scraperJobs = App.scraperJobs;
+        int careerPageJobs = App.careerPageJobs;
 
-        assertEquals(scraperJobs, peviitorJobs);
+        assertEquals(scraperJobs, peviitorJobs, careerPageJobs);
 
     }
 }
