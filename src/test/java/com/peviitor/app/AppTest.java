@@ -1,9 +1,6 @@
 package com.peviitor.app;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
-
-import com.peviitor.app.App;
 
 import org.junit.Test;
 
