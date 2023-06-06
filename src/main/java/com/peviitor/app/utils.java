@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class utils {
     // This method makes a request to the given url , method and data and returns
@@ -42,5 +43,12 @@ public class utils {
         connection.disconnect();
 
         return response.toString();
+    }
+
+    public static String dataToObject (String data) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Object responseObj = objectMapper.readValue(data, Object.class);
+
+        return new ObjectMapper().writeValueAsString(responseObj);
     }
 }
