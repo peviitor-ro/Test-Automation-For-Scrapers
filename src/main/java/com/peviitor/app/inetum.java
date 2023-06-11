@@ -8,5 +8,4 @@ public class inetum {
     public static void main(String[] args) throws Exception {
         data = utils.makeRequest(pythonScrapersUrl, "POST", dataObject);
     }
-
 }

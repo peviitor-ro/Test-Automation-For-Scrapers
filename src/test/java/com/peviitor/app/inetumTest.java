@@ -4,15 +4,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
-
 import java.nio.file.FileSystems;
-
 import java.util.concurrent.TimeUnit;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -69,6 +65,10 @@ public class inetumTest {
 
         careerPageJobs = Integer.parseInt(element.text().replace("(", "").replace(")", "").split(" ")[2]);
 
+        System.out.println("Peviitor: " + peviitorJobs);
+        System.out.println("Scraper: " + scraperJobs);
+        System.out.println("Career page: " + careerPageJobs);
+        
         // check if the number of jobs is the same
         if (scraperJobs == peviitorJobs && peviitorJobs == careerPageJobs) {
             // if the number of jobs is the same, then the test is passed
@@ -109,7 +109,7 @@ public class inetumTest {
                     } 
 
                 } catch (Exception e) { // if the job link is not valid
-                    data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\"" + "Job title is not the same" + "\"}";
+                    data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\"" + e + "\"}";
                     System.out.println("Fail");
                     break;
                 } 
