@@ -59,6 +59,7 @@ public class adobeTest {
 
         // convert JSON string to Map
         Map<String, Object> map = (Map<String, Object>) responseObj;
+        
        // transform the response to a list
         ArrayList<Object> peviitorJobsApi = (ArrayList<Object>) map.get("companies");
 

@@ -19,7 +19,7 @@ public class adiTest {
         adi.main(null);
 
         // set the urls
-        String peviitorUrl = "https://api.peviitor.ro/v3/search/?q=ADI&country=Rom%C3%A2nia&page=1";
+        String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
         String apiEndpoint = "http://localhost:8000/scraper/based_scraper_py/adi.py/";
 
         // initialize the variables for the number of jobs from each source
@@ -62,9 +62,17 @@ public class adiTest {
 
         // convert JSON string to Map
         Map<String, Object> map = (Map<String, Object>) responseObj;
-        Map<String, Object> peviitorJobsApi = (Map<String, Object>) map.get("response");
 
-        peviitorJobs = (int) peviitorJobsApi.get("numFound");
+        // transform the response to a list
+        ArrayList<Object> peviitorJobsApi = (ArrayList<Object>) map.get("companies");
+
+        for (Object job : peviitorJobsApi) {
+            // get value of the key
+            Map<String, Object> jobMap = (Map<String, Object>) job;
+            if (jobMap.get("name").toString().equals("ADI")) {
+                peviitorJobs = (int) jobMap.get("jobs");
+            }
+        }
 
         /* Making request to the career page to get the number of jobs */
         driver.get("https://analogdevices.wd1.myworkdayjobs.com/External?q=Romania");
@@ -73,15 +81,16 @@ public class adiTest {
         Thread.sleep(3000);
 
         // get the number of jobs from the career page
-        String careerPageData = driver.getPageSource();
+        String realJobsNumber = driver.findElement(By.className("css-12psxof")).getText().split(" ")[0];
+        // String careerPageData = driver.getPageSource();
 
-        // parse the response to get the number of jobs
-        Document doc = Jsoup.parse(careerPageData);
-        Element element = doc.select("p[class=css-12psxof]").first();
+        // // parse the response to get the number of jobs
+        // Document doc = Jsoup.parse(careerPageData);
+        // Element element = doc.select("p[class=css-12psxof]").first();
 
         // get the element that contains the number of jobs
 
-        careerPageJobs = Integer.parseInt(element.text().split(" ")[0]);
+        careerPageJobs = Integer.parseInt(realJobsNumber);
 
         System.out.println("Peviitor: " + peviitorJobs);
         System.out.println("Scraper: " + scraperJobs);
@@ -111,7 +120,8 @@ public class adiTest {
 
                     // check if the job title is the same
                     if (jobTitle.equals(jobMap.get("job_title").toString())) {
-                        data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"}";
+                        data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"" + "," + "\"" + "logs" + "\": " + "\""
+                                + "Automated test passed" + "\"}";
                         System.out.println("Pass");
                     } else { // if the job title is not the same
                         data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": "
