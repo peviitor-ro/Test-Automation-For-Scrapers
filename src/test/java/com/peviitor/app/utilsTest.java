@@ -1,23 +1,30 @@
 package com.peviitor.app;
 
+import java.lang.reflect.Method;
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Map;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.By;
-import java.nio.file.FileSystems;
 import java.util.concurrent.TimeUnit;
 
-public class adiTest {
-    public static void main(String[] args) throws Exception {
-        // Initialize the adi class
-        adi.main(null);
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+public class utilsTest {
+    public static String initiateTest (
+        String appData, 
+        String scraperApiEndpoint, 
+        String companyName, 
+        String careersUrl, 
+        String jobElementSelector, 
+        String jobTitleSelector) throws Exception {
 
         // set the urls
         String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
-        String apiEndpoint = "http://localhost:8000/scraper/based_scraper_py/adi.py/";
+        String apiEndpoint = scraperApiEndpoint;
 
         // initialize the variables for the number of jobs from each source
         int peviitorJobs = 0;
@@ -41,7 +48,7 @@ public class adiTest {
         String data = "";
 
         // convert JSON string to Map
-        Map<ArrayList, Object> adiData = objectMapper.readValue(adi.data.toString(), Map.class);
+        Map<ArrayList, Object> adiData = objectMapper.readValue(appData.toString(), Map.class);
         ArrayList jobs = (ArrayList) adiData.get("succes");
 
         // get the number of jobs from the scraper
@@ -59,31 +66,25 @@ public class adiTest {
 
         // convert JSON string to Map
         Map<String, Object> map = (Map<String, Object>) responseObj;
-
-        // transform the response to a list
+        
+       // transform the response to a list
         ArrayList<Object> peviitorJobsApi = (ArrayList<Object>) map.get("companies");
 
         for (Object job : peviitorJobsApi) {
             // get value of the key
             Map<String, Object> jobMap = (Map<String, Object>) job;
-            if (jobMap.get("name").toString().equals("ADI")) {
+            if (jobMap.get("name").toString().equals(companyName)) {
                 peviitorJobs = (int) jobMap.get("jobs");
             }
         }
-
         /* Making request to the career page to get the number of jobs */
-        driver.get("https://analogdevices.wd1.myworkdayjobs.com/External?q=Romania");
+        driver.get(careersUrl);
 
         // wait for 3 seconds
         Thread.sleep(3000);
 
         // get the number of jobs from the career page
-        String realJobsNumber = driver.findElement(By.className("css-12psxof")).getText().split(" ")[0];
-        // String careerPageData = driver.getPageSource();
-
-        // // parse the response to get the number of jobs
-        // Document doc = Jsoup.parse(careerPageData);
-        // Element element = doc.select("p[class=css-12psxof]").first();
+        String realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
 
         // get the element that contains the number of jobs
 
@@ -111,7 +112,7 @@ public class adiTest {
                     Thread.sleep(4000);
 
                     // get the job title
-                    String jobTitle = driver.findElement(By.tagName("h2")).getText();
+                    String jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
 
                     System.out.println(jobTitle);
 
@@ -145,5 +146,8 @@ public class adiTest {
         }
         // make request to the api to save the test result
         utils.makeRequest(apiEndpoint, "POST", data);
-    }
+        return null;
+    };
 }
+
+
