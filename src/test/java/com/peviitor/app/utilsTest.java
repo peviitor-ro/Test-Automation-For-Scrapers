@@ -112,9 +112,10 @@ public class utilsTest {
                     Thread.sleep(4000);
 
                     // get the job title
-                    String jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
+                    String jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText().replace("\u2013", "-");
 
                     System.out.println(jobTitle);
+                    System.out.println(jobMap.get("job_title").toString());
 
                     // check if the job title is the same
                     if (jobTitle.equals(jobMap.get("job_title").toString())) {
