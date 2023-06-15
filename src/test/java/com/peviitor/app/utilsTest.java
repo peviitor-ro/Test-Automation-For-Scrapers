@@ -1,6 +1,5 @@
 package com.peviitor.app;
 
-import java.lang.reflect.Method;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -12,15 +11,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Function;
 
 public class utilsTest {
+    
     public static String initiateTest (
         String appData, 
         String scraperApiEndpoint, 
         String companyName, 
         String careersUrl, 
         String jobElementSelector, 
-        String jobTitleSelector) throws Exception {
+        String jobTitleSelector,
+        Function<String, String>... splitByNewLine 
+        ) throws Exception {
 
         // set the urls
         String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
@@ -83,8 +86,16 @@ public class utilsTest {
         // wait for 3 seconds
         Thread.sleep(3000);
 
-        // get the number of jobs from the career page
-        String realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
+        driver.manage().window().maximize();
+
+        String realJobsNumber;
+        if (splitByNewLine.length == 1) {
+            realJobsNumber = splitByNewLine[0].apply(driver.findElement(By.cssSelector(jobElementSelector)).getText());
+        } else {
+            realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
+        }
+        // // get the number of jobs from the career page
+        // String realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
 
         // get the element that contains the number of jobs
 
