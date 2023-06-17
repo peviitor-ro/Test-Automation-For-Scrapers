@@ -22,7 +22,7 @@ public class inetumTest {
 
         // set the urls
         String peviitorUrl = "https://api.peviitor.ro/v3/search/?q=inetum&country=Rom%C3%A2nia&page=1";
-        String apiEndpoint = "http://localhost:8000/scraper/based_scraper_py/inetum.py/";
+        String apiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/inetum.py/";
 
         // initialize the variables for the number of jobs from each source
         int peviitorJobs = 0;

@@ -8,7 +8,7 @@ public class allianzTest {
         public static void main(String[] args) throws Exception {
         allianz.main(null);
         String data = allianz.data.toString();
-        String scraperApiEndpoint = "http://localhost:8000/scraper/based_scraper_py/allianz.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/allianz.py/";
         String companyName = "Allianz";
         String careersUrl = "https://careers.allianz.com/en_US.html/search/?searchby=location&createNewAlert=false&q=&locationsearch=Romania&optionsFacetsDD_department=&optionsFacetsDD_shifttype=&optionsFacetsDD_customfield3=&optionsFacetsDD_customfield2=&optionsFacetsDD_facility=&optionsFacetsDD_customfield4=&inputSearchValue=Romania&quatFlag=false";
         String jobElementSelector = "div[class='cpSearchBar__itemJob']";

@@ -17,7 +17,7 @@ public class adiTest {
 
         // set the urls
         String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
-        String apiEndpoint = "http://localhost:8000/scraper/based_scraper_py/adi.py/";
+        String apiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/adi.py/";
 
         // initialize the variables for the number of jobs from each source
         int peviitorJobs = 0;
