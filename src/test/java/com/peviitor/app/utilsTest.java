@@ -10,6 +10,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Function;
 
@@ -22,7 +26,7 @@ public class utilsTest {
         String careersUrl, 
         String jobElementSelector, 
         String jobTitleSelector,
-        Function<String, String>... splitByNewLine 
+        Function<String, String>... callFunctions 
         ) throws Exception {
 
         // set the urls
@@ -86,18 +90,18 @@ public class utilsTest {
         // wait for 3 seconds
         Thread.sleep(3000);
 
-        driver.manage().window().maximize();
+        String careerHtml = driver.getPageSource();
 
         String realJobsNumber;
-        if (splitByNewLine.length == 1) {
-            realJobsNumber = splitByNewLine[0].apply(driver.findElement(By.cssSelector(jobElementSelector)).getText());
+        if (callFunctions.length >= 1) {
+            Document doc = Jsoup.parse(careerHtml);
+            Element jobElement = doc.select(jobElementSelector).first();
+            realJobsNumber = callFunctions[0].apply(jobElement.text());
         } else {
             realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
         }
-        // // get the number of jobs from the career page
-        // String realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
-
-        // get the element that contains the number of jobs
+        
+        System.out.println(realJobsNumber);
 
         careerPageJobs = Integer.parseInt(realJobsNumber);
 
@@ -123,13 +127,23 @@ public class utilsTest {
                     Thread.sleep(4000);
 
                     // get the job title
-                    String jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText().replace("\u2013", "-");
+                    String jobTitle;
+                    String jobTitleScraper = jobMap.get("job_title").toString();
+
+                    if (callFunctions.length == 2){
+                        Document doc = Jsoup.parse(driver.getPageSource());
+                        Element jobElement = doc.select(jobTitleSelector).first();
+                        jobTitle = callFunctions[1].apply(jobElement.text());
+                        jobTitleScraper = callFunctions[1].apply(jobTitleScraper);
+                    } else {
+                        jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText().replace("\u2013", "-");
+                    }
 
                     System.out.println(jobTitle);
-                    System.out.println(jobMap.get("job_title").toString());
+                    System.out.println(jobTitleScraper);
 
                     // check if the job title is the same
-                    if (jobTitle.equals(jobMap.get("job_title").toString())) {
+                    if (jobTitle.equals(jobTitleScraper)) {
                         data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"" + "," + "\"" + "logs" + "\": " + "\""
                                 + "Automated test passed" + "\"}";
                         System.out.println("Pass");
@@ -156,8 +170,8 @@ public class utilsTest {
             data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
                     + "Number of jobs is not the same" + "\"}";
         }
-        // make request to the api to save the test result
-        utils.makeRequest(apiEndpoint, "POST", data);
+        // // make request to the api to save the test result
+        // utils.makeRequest(apiEndpoint, "POST", data);
         return null;
     };
 }

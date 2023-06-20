@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class allianzTest {
-        public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
         allianz.main(null);
         String data = allianz.data.toString();
         String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/allianz.py/";
