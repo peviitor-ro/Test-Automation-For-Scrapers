@@ -86,6 +86,7 @@ public class utilsTest {
         }
         /* Making request to the career page to get the number of jobs */
         driver.get(careersUrl);
+        driver.manage().window().maximize();
 
         // wait for 3 seconds
         Thread.sleep(3000);
@@ -93,7 +94,7 @@ public class utilsTest {
         String careerHtml = driver.getPageSource();
 
         String realJobsNumber;
-        if (callFunctions.length >= 1) {
+        if (callFunctions.length >= 1 && callFunctions[0] != null) {
             Document doc = Jsoup.parse(careerHtml);
             Element jobElement = doc.select(jobElementSelector).first();
             realJobsNumber = callFunctions[0].apply(jobElement.text());
@@ -136,7 +137,7 @@ public class utilsTest {
                         jobTitle = callFunctions[1].apply(jobElement.text());
                         jobTitleScraper = callFunctions[1].apply(jobTitleScraper);
                     } else {
-                        jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText().replace("\u2013", "-");
+                        jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
                     }
 
                     System.out.println(jobTitle);

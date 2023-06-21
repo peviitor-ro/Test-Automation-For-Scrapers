@@ -1,5 +1,7 @@
 package com.peviitor.app;
 
+import com.google.common.base.Function;
+
 public class adpTest {
     public static void main(String[] args) throws Exception {
         adp.main(null);
@@ -8,7 +10,20 @@ public class adpTest {
         String companyName = "ADP";
         String careersUrl = "https://jobs.adp.com/job-search-results/?language=en&location=Romania&country=RO&radius=25";
         String jobElementSelector = "span[id='live-results-counter']";
-        String jobTitleClass = "h1[class='jobdetail-title']";
-        utilsTest.initiateTest(data, scraperApiEndpoint, companyName, careersUrl, jobElementSelector, jobTitleClass);
+        String jobTitleSelector = "title";
+        utilsTest.initiateTest(
+            data, 
+            scraperApiEndpoint, 
+            companyName, careersUrl, 
+            jobElementSelector, 
+            jobTitleSelector,
+            null,
+            new Function<String, String>() {
+            @Override
+            public String apply(String s) {
+                String result = s.split(",")[0];
+                return result;
+            }
+        });
     }
 }

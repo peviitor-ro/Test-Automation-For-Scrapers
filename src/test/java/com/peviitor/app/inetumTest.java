@@ -10,8 +10,15 @@ public class inetumTest {
         String companyName = "Inetum";
         String careersUrl = "https://www.inetum.com/en/jobs?facets_query=&search=&f%5B0%5D=region%3A1068";
         String jobElementSelector = "#1068 > label > span.facet-item__count";
-        String jobTitleClass = "h1[class='card-title']";
-        utilsTest.initiateTest(data, scraperApiEndpoint, companyName, careersUrl, jobElementSelector, jobTitleClass, new Function<String, String>() {
+        String jobTitleSelector = "h1[class='card-title']";
+        utilsTest.initiateTest(
+            data, 
+            scraperApiEndpoint, 
+            companyName, 
+            careersUrl, 
+            jobElementSelector, 
+            jobTitleSelector, 
+            new Function<String, String>() {
             @Override
             public String apply(String s) {
                 // remove brackets
@@ -26,7 +33,6 @@ public class inetumTest {
                 String result = s.replaceAll("\\s", "");
                 return result;
             }
-        }
-        );
+        });
     }
 }
