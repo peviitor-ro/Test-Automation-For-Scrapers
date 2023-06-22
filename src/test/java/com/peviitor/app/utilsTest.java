@@ -140,18 +140,17 @@ public class utilsTest {
                         jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
                     }
 
-                    System.out.println(jobTitle);
-                    System.out.println(jobTitleScraper);
-
                     // check if the job title is the same
                     if (jobTitle.equals(jobTitleScraper)) {
                         data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"" + "," + "\"" + "logs" + "\": " + "\""
                                 + "Automated test passed" + "\"}";
-                        System.out.println("Pass");
+                        System.out.println("Automated test passed");
                     } else { // if the job title is not the same
                         data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": "
                                 + "\"" + "Job title is not the same" + "\"}";
-                        System.out.println("Fail");
+                        System.out.println("Automated test failed");
+                        System.out.println(jobTitle);
+                        System.out.println(jobTitleScraper);
                         break;
                     }
 

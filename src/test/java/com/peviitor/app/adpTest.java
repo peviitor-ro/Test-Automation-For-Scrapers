@@ -1,5 +1,4 @@
 package com.peviitor.app;
-
 import com.google.common.base.Function;
 
 public class adpTest {

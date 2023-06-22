@@ -21,7 +21,6 @@ public class inetumTest {
             new Function<String, String>() {
             @Override
             public String apply(String s) {
-                // remove brackets
                 String result = s.replaceAll("[\\[\\](){}]", "");
                 return result;
             }
@@ -29,7 +28,6 @@ public class inetumTest {
         new Function<String, String>() {
             @Override
             public String apply(String s) {
-                // remove spaces
                 String result = s.replaceAll("\\s", "");
                 return result;
             }

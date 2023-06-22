@@ -20,7 +20,6 @@ public class adiTest {
             new Function<String, String>() {
             @Override
             public String apply(String s) {
-                // remove brackets
                 String result = s.split(" ")[0];
                 return result;
             }
