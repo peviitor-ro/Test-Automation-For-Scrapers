@@ -26,4 +26,4 @@ jobs:
 
     # run main file
     - name: Step 5 - Run main file
-      run: java src/test/java/com/peviitor/app/main.java
+      run: mvn test -Dtest=com.peviitor.main
