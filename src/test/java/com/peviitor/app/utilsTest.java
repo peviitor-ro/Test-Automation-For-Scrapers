@@ -29,6 +29,8 @@ public class utilsTest {
         Function<String, String>... callFunctions 
         ) throws Exception {
 
+        System.out.println("Testing " + companyName + " scraper...");
+
         // set the urls
         String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
         String apiEndpoint = scraperApiEndpoint;
@@ -101,8 +103,6 @@ public class utilsTest {
         } else {
             realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
         }
-        
-        System.out.println(realJobsNumber);
 
         careerPageJobs = Integer.parseInt(realJobsNumber);
 
