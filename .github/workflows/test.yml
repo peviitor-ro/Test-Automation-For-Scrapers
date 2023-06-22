@@ -11,16 +11,24 @@ jobs:
     - name: Step 1 - Checkout code
       uses: actions/checkout@v3
 
-    - name: Step 2 - Set up Java
-      uses: actions/setup-java@v3
+    # - name: Step 2 - Set up Java
+    #   uses: actions/setup-java@v3
+    #   with:
+    #     java-version: '17'
+    #     distribution: 'adopt'
+
+    - name: Step 2.1 - install Maven
+      uses: actions/setup-java@v2
       with:
         java-version: '17'
         distribution: 'adopt'
+        server-id: server-id
+        settings-path: ${{ github.workspace }}
+        maven-version: '3.8.3'
 
-    - name: Step 3 - Build with Maven
-      run: mvn -B package --file pom.xml
+    
 
-    -name : Step 3.1 - compile
+    -name : Step 3 - compile
       run: mvn compile
 
     # install chrome browser
