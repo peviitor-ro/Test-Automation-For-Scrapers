@@ -6,6 +6,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
     - name: Step 1 - Checkout code
       uses: actions/checkout@v3
@@ -14,6 +15,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '11'
+        distribution: 'adopt'
 
     - name: Step 3 - Build with Maven
       run: mvn -B package --file pom.xml
