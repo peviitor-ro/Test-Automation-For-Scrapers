@@ -21,4 +21,3 @@ jobs:
     # run main file
     - name: Step 4 - Run main file
       run: java src/test/java/com/peviitor/app/main.java
-```
