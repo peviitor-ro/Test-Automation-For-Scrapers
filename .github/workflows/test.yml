@@ -18,8 +18,8 @@ jobs:
 
     - name: Install Google Chrome # Using shell script to install Google Chrome
       run: |
-       chmod +x ./scripts/InstallChrome.sh
-        ./scripts/InstallChrome.sh
+              chmod +x ./scripts/InstallChrome.sh
+                ./scripts/InstallChrome.sh 
 
     - name: Step 2.1 - install Maven
       uses: actions/setup-java@v2
