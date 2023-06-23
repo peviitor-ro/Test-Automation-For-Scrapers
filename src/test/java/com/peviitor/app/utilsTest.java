@@ -48,7 +48,7 @@ public class utilsTest {
 
         // set the path to the chromedriver
         System.setProperty("webdriver.chrome.driver",
-                currentPathString + "/src/test/java/com/peviitor/app/chromedriver");
+                 "/src/test/java/com/peviitor/app/chromedriver"); // currentPathString +
 
         // initialize the webdriver
         ChromeOptions options = new ChromeOptions();
