@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -51,7 +51,9 @@ public class utilsTest {
                 currentPathString + "/src/test/java/com/peviitor/app/chromedriver");
 
         // initialize the webdriver
-        WebDriver driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
 
         // the data object for the request
         String data = "";
@@ -88,7 +90,6 @@ public class utilsTest {
         }
         /* Making request to the career page to get the number of jobs */
         driver.get(careersUrl);
-        driver.manage().window().maximize();
 
         // wait for 3 seconds
         Thread.sleep(3000);
