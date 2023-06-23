@@ -33,8 +33,6 @@ jobs:
     - name : Step 3 - compile
       run: mvn package
       
-    - name : Step 4 - Run Tests
-      run : mvn test
       
 
 
