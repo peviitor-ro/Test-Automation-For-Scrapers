@@ -16,11 +16,8 @@ jobs:
     - name: Step 1 - Checkout code
       uses: actions/checkout@v3
 
-    # - name: Step 2 - Set up Java
-    #   uses: actions/setup-java@v3
-    #   with:
-    #     java-version: '17'
-    #     distribution: 'adopt'
+    - name: Step 2 - Install Chrome
+      run: sudo apt-get install -y google-chrome-stable
 
     - name: Step 2.1 - install Maven
       uses: actions/setup-java@v2
@@ -32,18 +29,4 @@ jobs:
         maven-version: '3.8.3'
         
     - name : Step 3 - compile
-      run: mvn compile
-
-    # install chrome browser
-    - name: Step 4 - Install Chrome
-      run: sudo apt-get install -y google-chrome-stable
-
-    # run main file
-    - name: Step 5 - Run main file
-      run: java -jar target/automation-1.0-SNAPSHOT.jar
-
-    # run tests
-    - name: Step 6 - Run tests
-      run: mvn -B test --file pom.xml
-
-
+      run: mvn package
