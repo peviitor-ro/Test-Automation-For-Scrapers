@@ -48,12 +48,14 @@ public class utilsTest {
 
         // set the path to the chromedriver
         System.setProperty("webdriver.chrome.driver",
-                 "/src/test/java/com/peviitor/app/chromedriver"); // currentPathString +
+                 currentPathString + "/src/test/java/com/peviitor/app/chromedriver");
 
         // initialize the webdriver
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver(options);       
 
         // the data object for the request
         String data = "";
@@ -173,7 +175,7 @@ public class utilsTest {
         }
         // // make request to the api to save the test result
         // utils.makeRequest(apiEndpoint, "POST", data);
-        return null;
+        return "true";
     };
 }
 

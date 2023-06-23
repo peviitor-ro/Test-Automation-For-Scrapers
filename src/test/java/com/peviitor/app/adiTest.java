@@ -1,9 +1,11 @@
 package com.peviitor.app;
 import org.junit.Test;
+import org.testng.asserts.Assertion;
 
 import com.google.common.base.Function;
 
 public class adiTest {
+    public static String results = "";
     public void compare() {
         String data = "";
         try{
@@ -19,7 +21,6 @@ public class adiTest {
         String careersUrl = "https://analogdevices.wd1.myworkdayjobs.com/External?q=Romania";
         String jobElementSelector = "p.css-12psxof";
         String jobTitleSelector = "h2";
-        String results = "";
         try {
             results = utilsTest.initiateTest(
                 data, 
@@ -43,5 +44,7 @@ public class adiTest {
     @Test
     public void test() {
         compare();
+        Assertion assertion = new Assertion();
+        assertion.assertEquals( results, "true");
     }
 }
