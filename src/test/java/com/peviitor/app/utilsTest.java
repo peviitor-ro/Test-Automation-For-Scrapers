@@ -19,7 +19,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Function;
 
 public class utilsTest {
-    
+
+    public static String testResult = "true";
+
     public static String initiateTest (
         String appData, 
         String scraperApiEndpoint, 
@@ -49,7 +51,7 @@ public class utilsTest {
 
         // set the path to the chromedriver
         System.setProperty("webdriver.chrome.driver",
-                 currentPathString + "/src/test/java/com/peviitor/app/chromedriver");
+                 currentPathString + "scripts/chromedriver");
 
         // initialize the webdriver
         WebDriverManager.chromedriver().setup();
@@ -156,6 +158,7 @@ public class utilsTest {
                         System.out.println("Automated test failed");
                         System.out.println(jobTitle);
                         System.out.println(jobTitleScraper);
+                        testResult = "false";
                         break;
                     }
 
@@ -163,6 +166,7 @@ public class utilsTest {
                     data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
                             + e + "\"}";
                     System.out.println(e);
+                    testResult = "false";
                     break;
                 }
             }
@@ -174,10 +178,11 @@ public class utilsTest {
             System.out.println("First Test failed!");
             data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
                     + "Number of jobs is not the same" + "\"}";
+            testResult = "false";
         }
         // // make request to the api to save the test result
         // utils.makeRequest(apiEndpoint, "POST", data);
-        return "true";
+        return testResult;
     };
 }
 

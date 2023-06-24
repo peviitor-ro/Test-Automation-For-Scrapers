@@ -1,7 +1,6 @@
 package com.peviitor.app;
 import org.junit.Test;
 import org.testng.asserts.Assertion;
-
 import com.google.common.base.Function;
 
 public class adiTest {
