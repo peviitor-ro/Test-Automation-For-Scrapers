@@ -132,7 +132,7 @@ public class utilsTest {
                     driver.get(jobMap.get("job_link").toString());
 
                     // wait to load the page
-                    Thread.sleep(4000);
+                    Thread.sleep(2000);
 
                     // get the job title
                     String jobTitle;
