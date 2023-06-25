@@ -18,7 +18,7 @@ public class adiTest {
         String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/adi.py/";
         String companyName = "ADI";
         String careersUrl = "https://analogdevices.wd1.myworkdayjobs.com/External?q=Romania";
-        String jobElementSelector = "p.css-12psxof";
+        String jobElementSelector = "p[class='css-12psxof']";
         String jobTitleSelector = "h2";
         try {
             results = utilsTest.initiateTest(
