@@ -25,54 +25,89 @@ import com.google.common.base.Function;
 public class utilsTest {
 
     public static String testResult = "true";
+    // the data object for the request
+    public static String data = "";
 
-    public static String initiateTest (
-        String appData, 
-        String scraperApiEndpoint, 
-        String companyName, 
-        String careersUrl, 
-        // this selectors must be visible on the careers page
-        String jobElementSelector, 
-        String jobTitleSelector,
-        Function<String, String>... callFunctions 
-        ) throws Exception {
+    // initialize the variables for the number of jobs from each source
+    public static int peviitorJobs = 0;
+    public static int scraperJobs = 0;
+    public static int careerPageJobs = 0;
+
+    public static ObjectMapper objectMapper = new ObjectMapper();
+
+    public static WebDriver driver = webdriver();
+    public static WebDriverWait wait = wait(driver);
+
+    public static ArrayList jobs;
+
+    public static String initiateTest(
+            String appData,
+            String scraperApiEndpoint,
+            String companyName,
+            String careersUrl,
+            // this selectors must be visible on the careers page
+            String jobElementSelector,
+            String jobTitleSelector,
+            Function<String, String>... callFunctions) throws Exception {
 
         System.out.println("Testing " + companyName + " scraper...");
 
-        // set the urls
-        String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
         String apiEndpoint = scraperApiEndpoint;
 
-        // initialize the variables for the number of jobs from each source
-        int peviitorJobs = 0;
-        int scraperJobs = 0;
-        int careerPageJobs = 0;
+        Boolean firstTestResult = false;
+        if (callFunctions.length >= 1) {
+            firstTestResult = checkNumberOfJobs(appData, companyName, careersUrl, jobElementSelector, callFunctions[0]);
+        } else {
+            firstTestResult = checkNumberOfJobs(appData, companyName, careersUrl, jobElementSelector, null);
+        }
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        // check if the number of jobs is the same
+        if (firstTestResult) {
+            // if the number of jobs is the same, then the test is passed
+            System.out.println("First test passed");
 
-        // get path to the chromedriver
-        Path currePath = FileSystems.getDefault().getPath("").toAbsolutePath();
-        String currentPathString = currePath.toString();
+            Boolean secondTestResult = false;
+            if (callFunctions.length >= 2) {
+                secondTestResult = checkLink(jobTitleSelector, callFunctions[1]);
+            } else {
+                secondTestResult = checkLink(jobTitleSelector, null);
+            }
 
-        // set the path to the chromedriver
-        System.setProperty("webdriver.chrome.driver",
-                 currentPathString + "scripts/chromedriver");
+            if (secondTestResult) {
+                System.out.println("Second test passed");
 
-        // initialize the webdriver
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--headless");
-        WebDriver driver = new ChromeDriver(options);    
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20)); 
+            } else {
+                System.out.println("Second test failed");
+            }
 
-        // the data object for the request
-        String data = "";
+        } else { // if the number of jobs is not the same
+            System.out.println("First Test failed!");
+            System.out.println("Peviitor: " + peviitorJobs);
+            System.out.println("Scraper: " + scraperJobs);
+            System.out.println("Career page: " + careerPageJobs);
+
+            data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
+                    + "Number of jobs is not the same" + "\"}";
+            testResult = "false";
+        }
+        // // make request to the api to save the test result
+        // utils.makeRequest(apiEndpoint, "POST", data);
+        return testResult;
+    };
+
+    public static Boolean checkNumberOfJobs(
+            String appData,
+            String companyName,
+            String careersUrl,
+            String jobElementSelector,
+            Function<String, String> callFunctions) throws Exception {
+
+        // set the urls
+        String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
 
         // convert JSON string to Map
         Map<ArrayList, Object> scraperData = objectMapper.readValue(appData.toString(), Map.class);
-        ArrayList jobs = (ArrayList) scraperData.get("succes");
+        jobs = (ArrayList) scraperData.get("succes");
 
         // get the number of jobs from the scraper
         scraperJobs = jobs.size();
@@ -89,8 +124,8 @@ public class utilsTest {
 
         // convert JSON string to Map
         Map<String, Object> map = (Map<String, Object>) responseObj;
-        
-       // transform the response to a list
+
+        // transform the response to a list
         ArrayList<Object> peviitorJobsApi = (ArrayList<Object>) map.get("companies");
 
         for (Object job : peviitorJobsApi) {
@@ -105,92 +140,95 @@ public class utilsTest {
 
         // wait for 2 seconds
         Thread.sleep(2000);
-        
 
         String realJobsNumber;
-        if (callFunctions.length >= 1 && callFunctions[0] != null) {
+        if (callFunctions != null) {
             Document doc = Jsoup.parse(driver.getPageSource());
             Element jobElement = doc.select(jobElementSelector).first();
-            realJobsNumber = callFunctions[0].apply(jobElement.text());
+            realJobsNumber = callFunctions.apply(jobElement.text());
         } else {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(jobElementSelector)));
-            realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();  
+            realJobsNumber = driver.findElement(By.cssSelector(jobElementSelector)).getText();
         }
 
         careerPageJobs = Integer.parseInt(realJobsNumber);
 
-        // check if the number of jobs is the same
-        if (scraperJobs == peviitorJobs && peviitorJobs == careerPageJobs) {
-            // if the number of jobs is the same, then the test is passed
-            System.out.println("First test passed");
+        return peviitorJobs == scraperJobs && peviitorJobs == careerPageJobs;
+    }
 
-            // get the jobs from the scraper
-            for (Object job : jobs) {
-                // convert JSON string to Map
-                Map<String, Object> jobMap = (Map<String, Object>) job;
+    public static Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {
+        // get the jobs from the scraper
+        for (Object job : jobs) {
+            // convert JSON string to Map
+            Map<String, Object> jobMap = (Map<String, Object>) job;
 
-                try {
-                    // get the job link
-                    driver.get(jobMap.get("job_link").toString());
+            try {
+                // get the job link
+                driver.get(jobMap.get("job_link").toString());
 
-                    // // wait to load the page
-                    // Thread.sleep(2000);
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(jobTitleSelector)));
-                    // get the job title
-                    String jobTitle;
-                    String jobTitleScraper = jobMap.get("job_title").toString();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(jobTitleSelector)));
+                // get the job title
+                String jobTitle;
+                String jobTitleScraper = jobMap.get("job_title").toString();
 
-                    if (callFunctions.length == 2){
-                        Document doc = Jsoup.parse(driver.getPageSource());
-                        Element jobElement = doc.select(jobTitleSelector).first();
-                        jobTitle = callFunctions[1].apply(jobElement.text());
-                        jobTitleScraper = callFunctions[1].apply(jobTitleScraper);
-                    } else {
-                        
-                        jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
-                    }
+                if (callFunctions != null) {
+                    Document doc = Jsoup.parse(driver.getPageSource());
+                    Element jobElement = doc.select(jobTitleSelector).first();
+                    jobTitle = callFunctions.apply(jobElement.text());
+                    jobTitleScraper = callFunctions.apply(jobTitleScraper);
+                } else {
+                    jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
+                }
 
-                    // check if the job title is the same
-                    if (jobTitle.equals(jobTitleScraper)) {
-                        data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"" + "," + "\"" + "logs" + "\": " + "\""
-                                + "Automated test passed" + "\"}";
-                        System.out.println("Automated test passed");
-                    } else { // if the job title is not the same
-                        data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": "
-                                + "\"" + "Job title is not the same" + "\"}";
-                        System.out.println("Automated test failed");
-                        System.out.println(jobTitle);
-                        System.out.println(jobTitleScraper);
-                        testResult = "false";
-                        break;
-                    }
-
-                } catch (Exception e) { // if the job link is not valid
-                    data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
-                            + e + "\"}";
-                    System.out.println(e);
+                // check if the job title is the same
+                if (jobTitle.equals(jobTitleScraper)) {
+                    data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"" + "," + "\"" + "logs" + "\": " + "\""
+                            + "Automated test passed" + "\"}";
+                    System.out.println("Automated test passed");
+                } else { // if the job title is not the same
+                    data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": "
+                            + "\"" + "Job title is not the same" + "\"}";
+                    System.out.println("Automated test failed");
+                    System.out.println(jobTitle);
+                    System.out.println(jobTitleScraper);
                     testResult = "false";
                     break;
                 }
+
+            } catch (Exception e) { // if the job link is not valid
+                data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
+                        + e + "\"}";
+                System.out.println(e);
+                testResult = "false";
+                break;
             }
-
-            // close the webdriver
-            driver.quit();
-
-        } else { // if the number of jobs is not the same
-            System.out.println("First Test failed!");
-            System.out.println("Peviitor: " + peviitorJobs);
-            System.out.println("Scraper: " + scraperJobs);
-            System.out.println("Career page: " + careerPageJobs);
-
-            data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
-                    + "Number of jobs is not the same" + "\"}";
-            testResult = "false";
         }
-        // // make request to the api to save the test result
-        // utils.makeRequest(apiEndpoint, "POST", data);
-        return testResult;
-    };
+        driver.quit();
+        return testResult == "true";
+    }
+
+    public static WebDriver webdriver() {
+        // get path to the chromedriver
+        Path currePath = FileSystems.getDefault().getPath("").toAbsolutePath();
+        String currentPathString = currePath.toString();
+
+        // set the path to the chromedriver
+        System.setProperty("webdriver.chrome.driver",
+                currentPathString + "scripts/chromedriver");
+
+        // initialize the webdriver
+        WebDriverManager.chromedriver().setup();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--headless");
+        WebDriver driver = new ChromeDriver(options);
+
+        return driver;
+    }
+
+    public static WebDriverWait wait(WebDriver driver) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        return wait;
+    }
 }
-
-
