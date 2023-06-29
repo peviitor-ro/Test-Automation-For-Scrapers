@@ -35,10 +35,7 @@ public class utilsTest {
 
     public static ObjectMapper objectMapper = new ObjectMapper();
 
-    public static WebDriver driver = webdriver();
-    public static WebDriverWait wait = wait(driver);
-
-    public static ArrayList jobs;
+    static ArrayList jobs;
 
     public static String initiateTest(
             String appData,
@@ -105,6 +102,10 @@ public class utilsTest {
         // set the urls
         String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
 
+        // initialize the driver
+        WebDriver driver = webdriver();
+        WebDriverWait wait = wait(driver);
+
         // convert JSON string to Map
         Map<ArrayList, Object> scraperData = objectMapper.readValue(appData.toString(), Map.class);
         jobs = (ArrayList) scraperData.get("succes");
@@ -153,12 +154,20 @@ public class utilsTest {
 
         careerPageJobs = Integer.parseInt(realJobsNumber);
 
+        // close the driver
+        driver.close();
+
         return peviitorJobs == scraperJobs && peviitorJobs == careerPageJobs;
     }
 
     public static Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {
+       // initialize the driver
+            WebDriver driver = webdriver();
+            WebDriverWait wait = wait(driver);
         // get the jobs from the scraper
         for (Object job : jobs) {
+            
+
             // convert JSON string to Map
             Map<String, Object> jobMap = (Map<String, Object>) job;
 
@@ -203,7 +212,7 @@ public class utilsTest {
                 break;
             }
         }
-        driver.quit();
+        driver.close();
         return testResult == "true";
     }
 

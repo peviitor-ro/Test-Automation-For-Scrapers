@@ -1,6 +1,8 @@
 name: Running tests
 
 on:
+  schedule:
+    - cron: '0 13 * * 3'
   workflow_dispatch:
 
 jobs:
