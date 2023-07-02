@@ -2,7 +2,7 @@ name: Running tests
 
 on:
   schedule:
-    - cron: '0 13 * * 3'
+    - cron: '10 19 * * 3'
   workflow_dispatch:
 
 jobs:
@@ -18,12 +18,7 @@ jobs:
     - name: Step 1 - Checkout code
       uses: actions/checkout@v3
 
-    - name: Step 2 - Install Google Chrome
-      run: |
-          chmod +x ./scripts/InstallChrome.sh
-            ./scripts/InstallChrome.sh 
-
-    - name: Step 2.1 - install Maven
+    - name: Step 2 - install Maven
       uses: actions/setup-java@v2
       with:
         java-version: '17'
@@ -33,10 +28,7 @@ jobs:
         maven-version: '3.8.3'
         
     - name : Step 3 - compile
-      run: mvn compile
-
-    - name : Step 4 - Start tests
-      run: mvn test
+      run: mvn package
       
       
 
