@@ -22,7 +22,7 @@ public class arcadisTest {
         String jobTitleSelector = "h1[class='heading job-details__title']";
 
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data,
                         scraperApiEndpoint,
                         companyName, careersUrl,

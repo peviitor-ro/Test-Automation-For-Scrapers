@@ -27,7 +27,7 @@ public class hmTest {
         String jobTitleSelector = "div[class='text text--title-large bold-red']";
 
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                     data,
                     scraperApiEndpoint,
                     companyName, careersUrl,

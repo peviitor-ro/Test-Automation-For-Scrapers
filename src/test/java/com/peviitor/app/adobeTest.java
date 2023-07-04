@@ -22,7 +22,7 @@ public class adobeTest {
         String jobElementSelector = "span[class='result-count']";
         String jobTitleSelector = "h1[class='job-title']";
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                 data, 
                 scraperApiEndpoint, 
                 companyName, 

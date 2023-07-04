@@ -37,7 +37,7 @@ public class utilsTest {
 
     static ArrayList jobs;
 
-    public static String initiateTest(
+    public String initiateTest(
             String appData,
             String scraperApiEndpoint,
             String companyName,
@@ -92,7 +92,7 @@ public class utilsTest {
         return testResult;
     };
 
-    public static Boolean checkNumberOfJobs(
+    public Boolean checkNumberOfJobs(
             String appData,
             String companyName,
             String careersUrl,

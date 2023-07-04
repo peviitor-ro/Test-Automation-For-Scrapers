@@ -23,7 +23,7 @@ public class allianzTest {
         String jobTitleClass = "h2[class='nx-heading--section']";
         
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data, 
                         scraperApiEndpoint, 
                         companyName, 

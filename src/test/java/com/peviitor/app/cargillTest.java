@@ -21,7 +21,7 @@ public class cargillTest {
         String jobTitleSelector = "div[class='jd-text-info']";
 
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data,
                         scraperApiEndpoint,
                         companyName, careersUrl,

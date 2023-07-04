@@ -24,7 +24,7 @@ public class decathlonTest {
         String jobTitleSelector = "h1";
 
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data,
                         scraperApiEndpoint,
                         companyName, careersUrl,

@@ -22,7 +22,7 @@ public class amazoneTest {
         String jobTitleSelector = "h1[class='title']";
         
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data, 
                         scraperApiEndpoint, 
                         companyName, 

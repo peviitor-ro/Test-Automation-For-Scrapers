@@ -22,7 +22,7 @@ public class betfairTest {
         String jobTitleSelector = "h2";
 
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data,
                         scraperApiEndpoint,
                         companyName, careersUrl,

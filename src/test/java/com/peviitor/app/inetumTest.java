@@ -22,7 +22,7 @@ public class inetumTest {
         String jobTitleSelector = "h1[class='card-title']";
         
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                         data, 
                         scraperApiEndpoint, 
                         companyName, 

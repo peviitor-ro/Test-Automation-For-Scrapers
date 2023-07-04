@@ -21,7 +21,7 @@ public class adiTest {
         String jobElementSelector = "p[class='css-12psxof']";
         String jobTitleSelector = "h2";
         try {
-            results = utilsTest.initiateTest(
+            results = new utilsTest().initiateTest(
                 data, 
                 scraperApiEndpoint, 
                 companyName, 
