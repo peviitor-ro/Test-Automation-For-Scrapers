@@ -15,7 +15,7 @@ public class auchanTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/auchan.py/";
         String companyName = "Auchan";
         String careersUrl = "https://cariere.auchan.ro";
         String jobElementSelector = "span[class='k-pager-info k-label']";

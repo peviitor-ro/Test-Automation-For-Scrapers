@@ -15,7 +15,7 @@ public class betfairTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/betfair.py/";
         String companyName = "Betfair";
         String careersUrl = "https://www.betfairromania.ro/find-a-job/?search=&country=Romania&pagesize=1000#results";
         String jobElementSelector = "p[class='job-count']";

@@ -17,7 +17,7 @@ public class decathlonTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/decathlon.py/";
         String companyName = "Decathlon";
         String careersUrl = "https://apply.workable.com/decathlon-romania/";
         String jobElementSelector = "small[class='styles--1qZQx']";

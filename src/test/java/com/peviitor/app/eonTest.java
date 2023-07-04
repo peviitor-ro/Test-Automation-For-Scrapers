@@ -19,7 +19,7 @@ public class eonTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/eon.py/";
         String companyName = "Eon";
         String careersUrl = "https://careers.eon.com/romania/go/Toate-joburile-din-Romania/3727401/?q=&sortColumn=referencedate&sortDirection=desc";
         String jobElementSelector = "span[class='paginationLabel']";

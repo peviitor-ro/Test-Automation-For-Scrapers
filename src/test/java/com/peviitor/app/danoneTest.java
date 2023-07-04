@@ -17,7 +17,7 @@ public class danoneTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/danone.py/";
         String companyName = "Danone";
         String careersUrl = "https://careers.danone.com/en-global/jobs.html?countries=Romania";
         String jobElementSelector = "span[class='dn-job-card-count__item']";

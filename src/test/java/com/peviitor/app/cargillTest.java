@@ -14,7 +14,7 @@ public class cargillTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/cargill.py/";
         String companyName = "Cargill";
         String careersUrl = "https://careers.cargill.com/en/search-jobs/Romania/23251/2/798549/46/25/50/2";
         String jobElementSelector = "section[id='search-results']";

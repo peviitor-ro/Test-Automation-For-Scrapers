@@ -17,7 +17,7 @@ public class electronicartsTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/ElectronicArts.py/";
         String companyName = "ElectronicArts";
         String careersUrl = "https://ea.gr8people.com/jobs?page=1&geo_location=ChIJw3aJlSb_sUARlLEEqJJP74Q";
         String jobElementSelector = "span[class='btn-toolbar-text']";

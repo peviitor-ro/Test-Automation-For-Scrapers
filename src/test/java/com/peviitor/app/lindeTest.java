@@ -20,7 +20,7 @@ public class lindeTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/linde.py/";
         String companyName = "Linde";
         String careersUrl = "https://linde.csod.com/ux/ats/careersite/20/home?c=linde&country=ro";
         String jobElementSelector = ".checkbox-label";

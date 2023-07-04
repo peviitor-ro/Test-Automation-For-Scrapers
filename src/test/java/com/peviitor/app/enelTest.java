@@ -16,7 +16,7 @@ public class enelTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/enel.py/";
         String companyName = "Enel";
         String careersUrl = "https://jobs.enel.com/en_US/careers/JobOpeningsRomania";
         String jobElementSelector = "p[class='section__header__text__title section__header__text__title--9']";

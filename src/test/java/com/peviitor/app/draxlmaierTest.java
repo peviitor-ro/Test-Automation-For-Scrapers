@@ -17,7 +17,7 @@ public class draxlmaierTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/draxlmaier.py/";
         String companyName = "Draxlmaier";
         String careersUrl = "https://d-career.org/Draexlmaier/go/DR\u00C4XLMAIER-Job-Opportunities-in-Romania-%28Romanian%29/4196801/?q=&sortColumn=referencedate&sortDirection=desc";
         String jobElementSelector = "span[class='paginationLabel']";

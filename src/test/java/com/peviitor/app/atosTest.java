@@ -15,7 +15,7 @@ public class atosTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/atos.py/";
         String companyName = "Atos";
         String careersUrl = "https://jobs.atos.net/go/Jobs-in-Romania/3686501/0/?q=&sortColumn=referencedate&sortDirection=desc";
         String jobElementSelector = "span[class='paginationLabel']";

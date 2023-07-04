@@ -15,7 +15,7 @@ public class bcrTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/astrazeneca.py/";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/bcr.py/";
         String companyName = "BCR";
         String careersUrl = "https://erstegroup-careers.com/bcr/search/?createNewAlert=false&q=&locations";
         String jobElementSelector = "span[class='paginationLabel']";
