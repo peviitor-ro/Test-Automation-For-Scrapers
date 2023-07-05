@@ -160,7 +160,7 @@ public class utilsTest {
         return peviitorJobs == scraperJobs && peviitorJobs == careerPageJobs;
     }
 
-    public static Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {
+    public Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {
        // initialize the driver
             WebDriver driver = webdriver();
             WebDriverWait wait = wait(driver);
@@ -189,10 +189,15 @@ public class utilsTest {
                     jobTitle = driver.findElement(By.cssSelector(jobTitleSelector)).getText();
                 }
 
+                // remove spaces from the jobs title
+                jobTitle = jobTitle.replaceAll(" ", "");
+                jobTitleScraper = jobTitleScraper.replaceAll(" ", "");
+
                 // check if the job title is the same
                 if (jobTitle.equals(jobTitleScraper)) {
                     data = "{\"" + "is_success" + "\": " + "\"" + "Pass" + "\"" + "," + "\"" + "logs" + "\": " + "\""
                             + "Automated test passed" + "\"}";
+                    testResult = "true";
                     System.out.println("Automated test passed");
                 } else { // if the job title is not the same
                     data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": "
