@@ -20,8 +20,8 @@ public class goodyearTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/goodyear.py/";
         String companyName = "GoodYear";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://jobs.goodyear.com/search/?createNewAlert=false&q=&locationsearch=Romania";
         String jobElementSelector = "span[class='paginationLabel']";
         String jobTitleSelector = "h1";

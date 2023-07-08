@@ -1,4 +1,5 @@
 package com.peviitor.app;
+
 import org.junit.Test;
 import org.testng.asserts.Assertion;
 
@@ -15,27 +16,28 @@ public class arcadisTest {
         } catch (Exception e) {
             System.out.println(e);
         }
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/arcadis.py/";
+
         String companyName = "Arcadis";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://careers.arcadis.com/search-results?qkstate=Romania";
         String jobElementSelector = "span[class='result-count']";
         String jobTitleSelector = "h1[class='heading job-details__title']";
 
         try {
             results = new utilsTest().initiateTest(
-                        data,
-                        scraperApiEndpoint,
-                        companyName, careersUrl,
-                        jobElementSelector,
-                        jobTitleSelector,
-                        null,
-                        new Function<String, String>() {
-                            @Override
-                            public String apply(String s) {
-                                String result = s.replaceAll("\\s", "");
-                                return result;
-                            }
-                        });
+                    data,
+                    scraperApiEndpoint,
+                    companyName, careersUrl,
+                    jobElementSelector,
+                    jobTitleSelector,
+                    null,
+                    new Function<String, String>() {
+                        @Override
+                        public String apply(String s) {
+                            String result = s.replaceAll("\\s", "");
+                            return result;
+                        }
+                    });
         } catch (Exception e) {
             System.out.println(e);
         }

@@ -55,8 +55,8 @@ class medicoverUtils extends utilsTest {
                     + "Number of jobs is not the same" + "\"}";
             testResult = "false";
         }
-        // // make request to the api to save the test result
-        // utils.makeRequest(apiEndpoint, "POST", data);
+        // make request to the api to save the test result
+        utils.makeRequest(apiEndpoint, "POST", data);
         return testResult;
     };
 
@@ -87,8 +87,8 @@ public class medicoverTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/medicover.py/";
         String companyName = "Medicover";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = null;
         String jobElementSelector = null;
         String jobTitleSelector = "div[class='job-title']";

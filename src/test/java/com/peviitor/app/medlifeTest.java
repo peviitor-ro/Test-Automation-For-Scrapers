@@ -9,20 +9,19 @@ import com.google.common.base.Function;
 import java.net.URL;
 import java.net.HttpURLConnection;
 
-
 class medlifeUtils extends utilsTest {
     @Override
     public Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {
 
         // get the jobs from the scraper
         for (Object job : jobs) {
-            
+
             // convert JSON string to Map
             Map<String, Object> jobMap = (Map<String, Object>) job;
 
             try {
                 // get status code
-                HttpURLConnection cn = (HttpURLConnection)new URL(jobMap.get("job_link").toString() ).openConnection();
+                HttpURLConnection cn = (HttpURLConnection) new URL(jobMap.get("job_link").toString()).openConnection();
                 int status = cn.getResponseCode();
 
                 // check if the job title is the same
@@ -64,8 +63,8 @@ public class medlifeTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/medlife.py/";
         String companyName = "Medlife";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://www.medlife.ro/cariere/lista-joburi";
         String jobElementSelector = ".title-header-listing > div > p";
         String jobTitleSelector = ".mlj-aplicatie-title-job";

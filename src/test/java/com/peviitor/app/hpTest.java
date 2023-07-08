@@ -20,8 +20,8 @@ public class hpTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/hp.py/";
         String companyName = "HP";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://jobs.hp.com/search-results/?business_unit[]=Romania";
         String jobElementSelector = "div[id='new-live-results']";
         String jobTitleSelector = ".jobHeaderInfo > h1";

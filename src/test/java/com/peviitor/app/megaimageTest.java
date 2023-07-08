@@ -18,8 +18,8 @@ public class megaimageTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/MegaImage.py/";
         String companyName = "MegaImage";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://cariere.mega-image.ro/joburi";
         String jobElementSelector = "span[class='results']";
         String jobTitleSelector = "h1";

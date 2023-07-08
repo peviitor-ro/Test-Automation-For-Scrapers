@@ -87,8 +87,8 @@ public class utilsTest {
                     + "Number of jobs is not the same" + "\"}";
             testResult = "false";
         }
-        // // make request to the api to save the test result
-        // utils.makeRequest(apiEndpoint, "POST", data);
+        // make request to the api to save the test result
+        utils.makeRequest(apiEndpoint, "POST", data);
         return testResult;
     };
 

@@ -1,5 +1,5 @@
 package com.peviitor.app;
-import java.util.ArrayList;
+
 import org.junit.Test;
 import org.testng.asserts.Assertion;
 import com.google.common.base.Function;
@@ -17,32 +17,32 @@ public class danoneTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/danone.py/";
         String companyName = "Danone";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://careers.danone.com/en-global/jobs.html?countries=Romania";
         String jobElementSelector = "span[class='dn-job-card-count__item']";
         String jobTitleSelector = "h1";
 
         try {
             results = new utilsTest().initiateTest(
-                        data,
-                        scraperApiEndpoint,
-                        companyName, careersUrl,
-                        jobElementSelector,
-                        jobTitleSelector,
-                        new Function<String, String>() {
-                            @Override
-                            public String apply(String s) {
-                                return s;
-                            }
-                        },
-                        new Function<String, String>() {
-                            @Override
-                            public String apply(String s) {
-                                String result = s.toUpperCase();
-                                return result;
-                            }
-                        });
+                    data,
+                    scraperApiEndpoint,
+                    companyName, careersUrl,
+                    jobElementSelector,
+                    jobTitleSelector,
+                    new Function<String, String>() {
+                        @Override
+                        public String apply(String s) {
+                            return s;
+                        }
+                    },
+                    new Function<String, String>() {
+                        @Override
+                        public String apply(String s) {
+                            String result = s.toUpperCase();
+                            return result;
+                        }
+                    });
         } catch (Exception e) {
             System.out.println(e);
         }

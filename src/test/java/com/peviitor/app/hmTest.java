@@ -20,8 +20,8 @@ public class hmTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/hm.py/";
         String companyName = "HM";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://career.hm.com/search/?l=cou%3Aro";
         String jobElementSelector = "h6[class='jobs-results-bar__text']";
         String jobTitleSelector = "div[class='text text--title-large bold-red']";

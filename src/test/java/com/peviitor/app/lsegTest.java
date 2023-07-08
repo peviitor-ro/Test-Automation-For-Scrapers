@@ -1,4 +1,5 @@
 package com.peviitor.app;
+
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ class lsegUtils extends utilsTest {
         careerPageJobs = Integer.parseInt(careersmap.get("total").toString());
 
         return peviitorJobs == scraperJobs && peviitorJobs == careerPageJobs;
-        
+
     };
 }
 
@@ -73,10 +74,11 @@ public class lsegTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/lseg.py/";
         String companyName = "LSEG";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://refinitiv.wd3.myworkdayjobs.com/wday/cxs/refinitiv/Careers/jobs";
-        String jobElementSelector = "{\"appliedFacets\":{\"locationCountry\":[\"f2e609fe92974a55a05fc1cdc2852122\"]},\"limit\":20,\"offset\":0,\"searchText\":\"\"}";;
+        String jobElementSelector = "{\"appliedFacets\":{\"locationCountry\":[\"f2e609fe92974a55a05fc1cdc2852122\"]},\"limit\":20,\"offset\":0,\"searchText\":\"\"}";
+        ;
         String jobTitleSelector = "h2";
 
         try {
@@ -85,8 +87,7 @@ public class lsegTest {
                     scraperApiEndpoint,
                     companyName, careersUrl,
                     jobElementSelector,
-                    jobTitleSelector
-                    );
+                    jobTitleSelector);
         } catch (Exception e) {
             System.out.println(e);
         }

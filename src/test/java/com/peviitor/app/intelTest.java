@@ -18,8 +18,8 @@ public class intelTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/intel.py/";
         String companyName = "Intel";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://jobs.intel.com/en/search-jobs/Romania/599/2/798549/46/25/50/2";
         String jobElementSelector = "#search-results > h1";
         String jobTitleSelector = "h1";

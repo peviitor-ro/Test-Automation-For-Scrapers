@@ -1,4 +1,5 @@
 package com.peviitor.app;
+
 import org.junit.Test;
 import org.testng.asserts.Assertion;
 import com.google.common.base.Function;
@@ -16,25 +17,25 @@ public class enelTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/enel.py/";
         String companyName = "Enel";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://jobs.enel.com/en_US/careers/JobOpeningsRomania";
         String jobElementSelector = "p[class='section__header__text__title section__header__text__title--9']";
         String jobTitleSelector = "h2";
 
         try {
             results = new utilsTest().initiateTest(
-                        data,
-                        scraperApiEndpoint,
-                        companyName, careersUrl,
-                        jobElementSelector,
-                        jobTitleSelector,
-                        new Function<String, String>() {
-                            @Override
-                            public String apply(String s) {
-                                return s.split(" ")[0];
-                            }
-                        });
+                    data,
+                    scraperApiEndpoint,
+                    companyName, careersUrl,
+                    jobElementSelector,
+                    jobTitleSelector,
+                    new Function<String, String>() {
+                        @Override
+                        public String apply(String s) {
+                            return s.split(" ")[0];
+                        }
+                    });
         } catch (Exception e) {
             System.out.println(e);
         }

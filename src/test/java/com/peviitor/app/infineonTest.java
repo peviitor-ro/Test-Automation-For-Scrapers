@@ -20,8 +20,8 @@ public class infineonTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/infineon.py/";
         String companyName = "Infineon";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://www.infineon.com/cms/en/careers/jobsearch/jobsearch/#!view=jobs&country=Romania";
         String jobElementSelector = ".results-header > ul > li";
         String jobTitleSelector = "h1[class='h2']";

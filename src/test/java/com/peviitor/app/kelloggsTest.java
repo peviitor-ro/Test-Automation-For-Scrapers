@@ -20,8 +20,8 @@ public class kelloggsTest {
             System.out.println(e);
         }
 
-        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/kelloggs.py/";
         String companyName = "Kelloggs";
+        String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://jobs.kellogg.com/search/?createNewAlert=false&q=&locationsearch=Romania";
         String jobElementSelector = "span[class='paginationLabel']";
         String jobTitleSelector = "h1";
@@ -51,8 +51,7 @@ public class kelloggsTest {
                         public String apply(String s) {
                             return s.replace("Title: ", "");
                         }
-                    }
-                    );
+                    });
         } catch (Exception e) {
             System.out.println(e);
         }
