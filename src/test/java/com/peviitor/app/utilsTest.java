@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,10 +51,18 @@ public class utilsTest {
         String apiEndpoint = scraperApiEndpoint;
 
         Boolean firstTestResult = false;
-        if (callFunctions.length >= 1) {
-            firstTestResult = checkNumberOfJobs(appData, companyName, careersUrl, jobElementSelector, callFunctions[0]);
-        } else {
-            firstTestResult = checkNumberOfJobs(appData, companyName, careersUrl, jobElementSelector, null);
+        try {
+            if (callFunctions.length >= 1) {
+                firstTestResult = checkNumberOfJobs(appData, companyName, careersUrl, jobElementSelector,
+                        callFunctions[0]);
+            } else {
+                firstTestResult = checkNumberOfJobs(appData, companyName, careersUrl, jobElementSelector, null);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            data = "{\"" + "is_success" + "\": " + "\"" + "Fail" + "\"" + "," + "\"" + "logs" + "\": " + "\""
+                    + "Number of jobs is not the same" + "\"}";
+            testResult = "false";
         }
 
         // check if the number of jobs is the same
@@ -99,9 +106,6 @@ public class utilsTest {
             String jobElementSelector,
             Function<String, String> callFunctions) throws Exception {
 
-        // set the urls
-        String peviitorUrl = "https://api.peviitor.ro/v1/companies/?count=true";
-
         // initialize the driver
         WebDriver driver = webdriver();
         WebDriverWait wait = wait(driver);
@@ -138,12 +142,11 @@ public class utilsTest {
     }
 
     public Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {
-       // initialize the driver
-            WebDriver driver = webdriver();
-            WebDriverWait wait = wait(driver);
+        // initialize the driver
+        WebDriver driver = webdriver();
+        WebDriverWait wait = wait(driver);
         // get the jobs from the scraper
         for (Object job : jobs) {
-            
 
             // convert JSON string to Map
             Map<String, Object> jobMap = (Map<String, Object>) job;
@@ -198,7 +201,7 @@ public class utilsTest {
         return testResult == "true";
     }
 
-    public static WebDriver webdriver() {
+    public WebDriver webdriver() {
         // get path to the chromedriver
         Path currePath = FileSystems.getDefault().getPath("").toAbsolutePath();
         String currentPathString = currePath.toString();
@@ -218,7 +221,7 @@ public class utilsTest {
         return driver;
     }
 
-    public static WebDriverWait wait(WebDriver driver) {
+    public WebDriverWait wait(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         return wait;
     }
