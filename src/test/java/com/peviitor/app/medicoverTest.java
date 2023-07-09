@@ -47,7 +47,6 @@ class medicoverUtils extends utilsTest {
 
         } else { // if the number of jobs is not the same
             System.out.println("First Test failed!");
-            System.out.println("Peviitor: " + peviitorJobs);
             System.out.println("Scraper: " + scraperJobs);
             System.out.println("Career page: " + careerPageJobs);
 

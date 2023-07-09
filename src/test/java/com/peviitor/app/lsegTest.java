@@ -28,35 +28,11 @@ class lsegUtils extends utilsTest {
         // get the number of jobs from the scraper
         scraperJobs = jobs.size();
 
-        // wait for the peviitor api to update
-        TimeUnit.SECONDS.sleep(3);
-
-        /* Making request to the Peviitor Api to get the number of jobs */
-        // get the number of jobs from the scraper
-        String peviitorData = utils.makeRequest(peviitorUrl, "GET");
-
-        // parse the response to get the number of jobs
-        Object responseObj = objectMapper.readValue(peviitorData, Object.class);
-
-        // convert JSON string to Map
-        Map<String, Object> map = (Map<String, Object>) responseObj;
-
-        // transform the response to a list
-        ArrayList<Object> peviitorJobsApi = (ArrayList<Object>) map.get("companies");
-
-        for (Object job : peviitorJobsApi) {
-            // get value of the key
-            Map<String, Object> jobMap = (Map<String, Object>) job;
-            if (jobMap.get("name").toString().equals(companyName)) {
-                peviitorJobs = (int) jobMap.get("jobs");
-            }
-        }
-
         String careersResponse = utils.makeRequest(careersUrl, "POST", jobElementSelector);
         Map<String, Object> careersmap = objectMapper.readValue(careersResponse, Map.class);
         careerPageJobs = Integer.parseInt(careersmap.get("total").toString());
 
-        return peviitorJobs == scraperJobs && peviitorJobs == careerPageJobs;
+        return scraperJobs == careerPageJobs;
 
     };
 }

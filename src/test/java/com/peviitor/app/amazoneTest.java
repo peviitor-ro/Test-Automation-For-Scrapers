@@ -19,7 +19,7 @@ public class amazoneTest {
         String companyName = "Amazon";
         String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
         String careersUrl = "https://www.amazon.jobs/en/locations/bucharest-romania";
-        String jobElementSelector = "span.job-count > span.sr-only";
+        String jobElementSelector = "span.job-count > span";
         String jobTitleSelector = "h1[class='title']";
 
         try {
@@ -33,14 +33,8 @@ public class amazoneTest {
                     new Function<String, String>() {
                         @Override
                         public String apply(String s) {
-                            String result = s.split(" ")[0];
-                            return result;
-                        }
-                    },
-                    new Function<String, String>() {
-                        @Override
-                        public String apply(String s) {
-                            String result = s.replaceAll(" ", "");
+                            String result = s.replace("(", "")
+                                            .replace(")", "");
                             return result;
                         }
                     });

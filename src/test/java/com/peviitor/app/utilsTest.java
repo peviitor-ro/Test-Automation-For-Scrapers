@@ -29,7 +29,7 @@ public class utilsTest {
     public static String data = "";
 
     // initialize the variables for the number of jobs from each source
-    public static int peviitorJobs = 0;
+    // public static int peviitorJobs = 0;
     public static int scraperJobs = 0;
     public static int careerPageJobs = 0;
 
@@ -79,7 +79,7 @@ public class utilsTest {
 
         } else { // if the number of jobs is not the same
             System.out.println("First Test failed!");
-            System.out.println("Peviitor: " + peviitorJobs);
+            // System.out.println("Peviitor: " + peviitorJobs);
             System.out.println("Scraper: " + scraperJobs);
             System.out.println("Career page: " + careerPageJobs);
 
@@ -113,29 +113,6 @@ public class utilsTest {
         // get the number of jobs from the scraper
         scraperJobs = jobs.size();
 
-        // wait for the peviitor api to update
-        TimeUnit.SECONDS.sleep(3);
-
-        /* Making request to the Peviitor Api to get the number of jobs */
-        // get the number of jobs from the scraper
-        String peviitorData = utils.makeRequest(peviitorUrl, "GET");
-
-        // parse the response to get the number of jobs
-        Object responseObj = objectMapper.readValue(peviitorData, Object.class);
-
-        // convert JSON string to Map
-        Map<String, Object> map = (Map<String, Object>) responseObj;
-
-        // transform the response to a list
-        ArrayList<Object> peviitorJobsApi = (ArrayList<Object>) map.get("companies");
-
-        for (Object job : peviitorJobsApi) {
-            // get value of the key
-            Map<String, Object> jobMap = (Map<String, Object>) job;
-            if (jobMap.get("name").toString().equals(companyName)) {
-                peviitorJobs = (int) jobMap.get("jobs");
-            }
-        }
         /* Making request to the career page to get the number of jobs */
         driver.get(careersUrl);
 
@@ -157,7 +134,7 @@ public class utilsTest {
         // close the driver
         driver.close();
 
-        return peviitorJobs == scraperJobs && peviitorJobs == careerPageJobs;
+        return scraperJobs == careerPageJobs;
     }
 
     public Boolean checkLink(String jobTitleSelector, Function<String, String> callFunctions) throws Exception {

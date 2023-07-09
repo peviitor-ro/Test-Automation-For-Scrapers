@@ -1,26 +1,29 @@
 package com.peviitor.app;
 
-import java.util.ArrayList;
 import org.junit.Test;
 import org.testng.asserts.Assertion;
+
+import java.util.ArrayList;
+
 import com.google.common.base.Function;
 
-public class auchanTest {
+public class molsoncoorsTest {
     public static String results = "";
 
     public void compare() {
         String data = "";
+
         try {
-            auchan.main(null);
-            data = auchan.data.toString();
+            molsoncoors.main(null);
+            data = molsoncoors.data.toString();
         } catch (Exception e) {
             System.out.println(e);
         }
 
-        String companyName = "Auchan";
+        String companyName = "MolsonCoors";
         String scraperApiEndpoint = "https://dev.laurentiumarian.ro/scraper/based_scraper_py/" + companyName + ".py/";
-        String careersUrl = "https://cariere.auchan.ro";
-        String jobElementSelector = "span[class='k-pager-info k-label']";
+        String careersUrl = "https://jobs.molsoncoors.com/MolsonCoors_GBSRomania/search/?q=Romania&startrow=1";
+        String jobElementSelector = "span[class='paginationLabel']";
         String jobTitleSelector = "h1";
 
         try {
@@ -40,7 +43,13 @@ public class auchanTest {
                                     }
                                 }
                             };
-                            return result.get(result.size() - 2);
+                            return result.get(result.size() - 1);
+                        };
+                    },
+                    new Function<String, String>() {
+                        @Override
+                        public String apply(String s) {
+                            return s.replace("Title:", "");
                         }
                     });
         } catch (Exception e) {
