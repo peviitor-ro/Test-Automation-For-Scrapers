@@ -12,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.PageLoadStrategy;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +33,7 @@ public class utilsTest {
     public static int scraperJobs = 0;
     public static int careerPageJobs = 0;
 
-    public static ObjectMapper objectMapper = new ObjectMapper();
+    public ObjectMapper objectMapper = new ObjectMapper();
 
     static ArrayList jobs;
 
@@ -216,6 +217,7 @@ public class utilsTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--headless");
+        options.setPageLoadStrategy(PageLoadStrategy.NONE);
         WebDriver driver = new ChromeDriver(options);
 
         return driver;
@@ -225,4 +227,5 @@ public class utilsTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         return wait;
     }
+
 }
